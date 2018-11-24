@@ -3,17 +3,18 @@ package educational.hackathon.roleplay_school.models;
 
 public class Note {
     private int noteId;
+    private int authorId;
     private String note;
     private String date;
-    private String author;
 
 
 
-    public Note(int noteId, String note, String date, String author) {
+
+    public Note(int noteId, String note, String date, int authoIdr) {
         this.noteId = noteId;
         this.note = note;
         this.date = date;
-        this.author = author;
+        this.authorId = authorId;
     }
 
     public String getNote() {
@@ -40,11 +41,11 @@ public class Note {
         this.date = date;
     }
 
-    public String getAuthor() {
-        return author;
+    public int getAuthor() {
+        return authorId;
     }
 
-    public void setAuthor(String lastAuthor) {
-        this.author = lastAuthor;
+    public void setAuthor(int lastAuthor) {
+        this.authorId = lastAuthor;
     }
 }
