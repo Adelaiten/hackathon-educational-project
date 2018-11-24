@@ -17,11 +17,10 @@ public class DAOAccountsSQL implements DAOAccounts {
     }
 
     @Override
-    public Account getAccountsByNicknameAndPassword(String nickname, String password) throws SQLException, NoSuchElementException {
-        String sql = "SELECT * FROM accounts WHERE nick=? AND password=?";
+    public Account getAccountByNickname(String nickname) throws SQLException, NoSuchElementException {
+        String sql = "SELECT * FROM accounts WHERE nick=?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, nickname);
-        ps.setString(2, password);
         ResultSet resultSet = ps.executeQuery();
         if(resultSet.next()){
             return extractAccountFromResult(resultSet);
@@ -41,5 +40,21 @@ public class DAOAccountsSQL implements DAOAccounts {
         account.setSalt(resultSet.getString("salt"));
         return account;
     }
+    public String hashPassword(String password){
+        return null;
+    }
 
+    @Override
+    public Account getAccountsByNicknameAndPassword(String nickname, String password) throws SQLException, NoSuchElementException {
+        String sql = "SELECT * FROM accounts WHERE nick=? AND password=?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, nickname);
+        ps.setString(2, password);
+        ResultSet resultSet = ps.executeQuery();
+        if(resultSet.next()){
+            return extractAccountFromResult(resultSet);
+        } else {
+            throw new NoSuchElementException();
+        }
+    }
 }
