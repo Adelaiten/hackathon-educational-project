@@ -7,10 +7,13 @@ public class Account {
 
     private String username;
     private String passwordHash;
+    private String salt;
     private String name;
     private String surname;
     private String email;
     private int role;
+
+    public Account(){}
 
     public Account(int idAccount, String username, String passwordHash, String name, String surname, String email, int role) {
         this.idAccount = idAccount;
@@ -44,6 +47,14 @@ public class Account {
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public String getName() {
