@@ -6,6 +6,7 @@ salt VARCHAR,
 name VARCHAR,
 surname VARCHAR,
 email VARCHAR,
+role INTEGER,
 PRIMARY KEY (id_account));
 
 CREATE TABLE quest(
@@ -30,6 +31,7 @@ CREATE TABLE sessions(
 id_session SERIAL NOT NULL,
 session_id VARCHAR,
 id_account SERIAL REFERENCES account(id_account),
+expiration_date DATE,
 PRIMARY KEY (id_session));
 
 
