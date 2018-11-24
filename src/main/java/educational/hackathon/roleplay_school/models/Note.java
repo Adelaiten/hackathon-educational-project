@@ -7,11 +7,23 @@ public class Note {
     private int noteId;
     private int authorId;
     private String note;
+<<<<<<< HEAD
 
 
     public Note(int noteId, String note, int authorId) {
         this.noteId = noteId;
         this.note = note;
+=======
+    private String date;
+
+
+
+
+    public Note(int noteId, String note, String date, int authoIdr) {
+        this.noteId = noteId;
+        this.note = note;
+        this.date = date;
+>>>>>>> Notedao
         this.authorId = authorId;
     }
 
@@ -31,6 +43,17 @@ public class Note {
         this.note = note;
     }
 
+<<<<<<< HEAD
+=======
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+>>>>>>> Notedao
     public int getAuthor() {
         return authorId;
     }

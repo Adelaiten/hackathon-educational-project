@@ -20,7 +20,7 @@ public class DAOQuest implements DAOQuestInterface {
 
     @Override
     public Quest getQuestById(int id) throws SQLException{
-        PreparedStatement preparedStatement = connection.prepareStatement("select * FROM quest WHERE id_quest = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("select * FROM quest WHERE id_quest = ?;");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Quest quest = null;
@@ -40,7 +40,7 @@ public class DAOQuest implements DAOQuestInterface {
         List<Integer> studentIdQuests = getStudentQuestsIds(accountsId);
         List<Quest> questsList = new ArrayList<>();
         for(Integer questId : studentIdQuests) {
-            PreparedStatement preparedStatement = connection.prepareStatement("select * FROM quest WHERE id_quest = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * FROM quest WHERE id_quest = ?;");
             preparedStatement.setInt(1, questId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
@@ -56,7 +56,7 @@ public class DAOQuest implements DAOQuestInterface {
     }
 
     private List<Integer> getStudentQuestsIds(int accountsId) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT id_quest FROM done_quests WHERE id_student = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT id_quest FROM done_quests WHERE id_student = ?;");
         preparedStatement.setInt(1, accountsId);
         ResultSet resultSet = preparedStatement.executeQuery();
         List<Integer> codecoolerIdQuests = new ArrayList<>();
