@@ -72,3 +72,10 @@ id_student SERIAL REFERENCES student(id_student),
 id_reward SERIAL REFERENCES reward(id_reward),
 PRIMARY KEY (id_student_reward));
 
+CREATE TABLE note(
+id_note SERIAL NOT NULL,
+id_account SERIAL REFERENCES account(id_account)),
+note TEXT,
+create_date DATE,
+PRIMARY KEY (id_note));
+
