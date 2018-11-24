@@ -11,9 +11,11 @@ import java.util.NoSuchElementException;
 
 public class DAOAccountsSQL implements DAOAccounts {
     private Connection connection;
+
     public DAOAccountsSQL(Connection connection){
         this.connection = connection;
     }
+    @Override
     public Account getAccountsByNicknameAndPassword(String nickname, String password) throws SQLException, NoSuchElementException {
         String sql = "SELECT * FROM accounts WHERE nick=? AND password=?";
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -38,6 +40,5 @@ public class DAOAccountsSQL implements DAOAccounts {
         account.setSalt(resultSet.getString("salt"));
         return account;
     }
-
 
 }

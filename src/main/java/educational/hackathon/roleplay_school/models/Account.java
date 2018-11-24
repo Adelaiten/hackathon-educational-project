@@ -4,7 +4,7 @@ import com.sun.jmx.remote.internal.ClientCommunicatorAdmin;
 
 public class Account {
     private int idAccount;
-
+    private String sessionId;
     private String username;
     private String passwordHash;
     private String salt;
@@ -87,5 +87,13 @@ public class Account {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }
