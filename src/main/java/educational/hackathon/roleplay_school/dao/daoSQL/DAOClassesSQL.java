@@ -25,7 +25,7 @@ public class DAOClassesSQL implements DAOClasses {
 
     @Override
     public ClassRoom getClassRoom(int id) throws SQLException, NoSuchElementException{
-        String sql = String.format("SELECT * FROM %s WHERE %s=?", CLASS_TABLE_NAME, ID_COLUMN_NAME);
+        String sql = String.format("SELECT * FROM %s WHERE %s=?;", CLASS_TABLE_NAME, ID_COLUMN_NAME);
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, id);
@@ -40,7 +40,7 @@ public class DAOClassesSQL implements DAOClasses {
 
     @Override
     public List<ClassRoom> getAllClasses() throws SQLException {
-        String sql = String.format("SELECT * FROM %s", CLASS_TABLE_NAME);
+        String sql = String.format("SELECT * FROM %s;", CLASS_TABLE_NAME);
         List<ClassRoom> result = new ArrayList<>();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
