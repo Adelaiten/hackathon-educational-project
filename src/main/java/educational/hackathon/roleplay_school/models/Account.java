@@ -2,7 +2,7 @@ package educational.hackathon.roleplay_school.models;
 
 import com.sun.jmx.remote.internal.ClientCommunicatorAdmin;
 
-public class User {
+public class Account {
     private int idAccount;
 
     private String username;
@@ -12,7 +12,7 @@ public class User {
     private String email;
     private int role;
 
-    public User(int idAccount, String username, String passwordHash, String name, String surname, String email, int role) {
+    public Account(int idAccount, String username, String passwordHash, String name, String surname, String email, int role) {
         this.idAccount = idAccount;
         this.username = username;
         this.passwordHash = passwordHash;

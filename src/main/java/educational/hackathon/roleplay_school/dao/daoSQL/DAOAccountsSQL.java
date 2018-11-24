@@ -1,7 +1,7 @@
 package educational.hackathon.roleplay_school.dao.daoSQL;
 
-import educational.hackathon.roleplay_school.connectors.SQLConnector;
 import educational.hackathon.roleplay_school.dao.DAOAccounts;
+import educational.hackathon.roleplay_school.models.Account;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,16 +13,20 @@ public class DAOAccountsSQL implements DAOAccounts {
     public DAOAccountsSQL(Connection connection){
         this.connection = connection;
     }
-    public void getAccountsByNicknameAndPassword(String nickname, String password) throws SQLException {
+    public Account getAccountsByNicknameAndPassword(String nickname, String password) throws SQLException {
         String sql = "SELECT * FROM accounts WHERE nick=? AND password=?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, nickname);
         ps.setString(2, password);
         ResultSet resultSet = ps.executeQuery();
         if(resultSet.next()){
-            resultSet.
+            return extractAccountFromResult(resultSet);
         }
     }
 
+    private Account extractAccountFromResult(ResultSet resultSet){
+
+        return null;
+    }
 
 }

@@ -3,7 +3,7 @@ package educational.hackathon.roleplay_school.models;
 import java.util.List;
 
 public class ClassRoom {
-    private List<User> usersInClassList;
+    private List<Account> usersInClassList;
     private String classRoomName;
     private int classId;
 
@@ -12,11 +12,11 @@ public class ClassRoom {
         this.classId = classId;
     }
 
-    public List<User> getUsersInClassList() {
+    public List<Account> getUsersInClassList() {
         return usersInClassList;
     }
 
-    public void setUsersInClassList(List<User> usersInClassList) {
+    public void setUsersInClassList(List<Account> usersInClassList) {
         this.usersInClassList = usersInClassList;
     }
 

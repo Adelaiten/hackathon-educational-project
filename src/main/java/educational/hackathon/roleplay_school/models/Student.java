@@ -1,6 +1,6 @@
 package educational.hackathon.roleplay_school.models;
 
-public class Student extends User {
+public class Student extends Account {
     private int idClass;
     private int idStudent;
 
