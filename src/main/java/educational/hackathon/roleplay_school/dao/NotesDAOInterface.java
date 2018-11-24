@@ -5,8 +5,8 @@ import educational.hackathon.roleplay_school.models.Note;
 import java.sql.SQLException;
 
 public interface NotesDAOInterface {
-    Note getNoteFromDatabase(int authorId) throws SQLException;
-    void updateNoteInDatabase(int noteId);
-    void insertNoteIntoDatabase();
-    void deleteNoteFromDatabase(int noteId);
+    Note getNoteFromDatabase(int idNote) throws SQLException;
+    void updateNoteInDatabase(int noteId, String noteText) throws SQLException;
+    void insertNoteIntoDatabase(int id_note, int id_account, String note) throws SQLException;
+    void deleteNoteFromDatabase(int noteId) throws SQLException;
 }
