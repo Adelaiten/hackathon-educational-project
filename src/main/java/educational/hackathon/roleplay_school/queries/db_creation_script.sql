@@ -6,7 +6,7 @@ salt VARCHAR,
 name VARCHAR,
 surname VARCHAR,
 email VARCHAR,
-role INTEGER,
+role VARCHAR,
 PRIMARY KEY (id_account));
 
 CREATE TABLE quest(
@@ -45,6 +45,7 @@ CREATE TABLE done_quests(
 id_done_quest SERIAL NOT NULL,
 id_quest SERIAL REFERENCES quest(id_quest),
 id_student SERIAL REFERENCES student(id_student),
+is_complete BOOLEAN,
 PRIMARY KEY (id_done_quest));
 
 CREATE TABLE team(
