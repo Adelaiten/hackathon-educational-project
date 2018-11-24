@@ -15,6 +15,7 @@ public class DAOAccountsSQL implements DAOAccounts {
     public DAOAccountsSQL(Connection connection){
         this.connection = connection;
     }
+
     @Override
     public Account getAccountsByNicknameAndPassword(String nickname, String password) throws SQLException, NoSuchElementException {
         String sql = "SELECT * FROM accounts WHERE nick=? AND password=?";
