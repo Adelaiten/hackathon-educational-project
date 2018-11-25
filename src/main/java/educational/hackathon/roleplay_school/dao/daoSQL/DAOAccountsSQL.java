@@ -16,7 +16,6 @@ public class DAOAccountsSQL implements DAOAccounts {
         this.connection = connection;
     }
 
-    @Override
     public Account getAccountByNickname(String nickname) throws SQLException, NoSuchElementException {
         return null;
     }

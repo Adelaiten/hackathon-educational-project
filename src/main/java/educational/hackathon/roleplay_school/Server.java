@@ -28,7 +28,7 @@ public class Server {
             CookieHelper cookieHelper = new CookieHelper("cookie");
             Connection connection = SQLConnector.getConnection();
             DAOAccounts daoAccounts = new DAOAccountsSQL(connection);
-            DAOSession daoSession = new DAOSessionSQL(cookieHelper);
+            DAOSession daoSession = new DAOSessionSQL(connection);
             HttpServer httpServer = HttpServer.create(new InetSocketAddress(8000), 0);
             httpServer.createContext("/", new LoginHandler(daoAccounts, daoSession, cookieHelper));
             httpServer.createContext("/studentProfile", new StudentProfile(allDAOs, new CookieHelper("")));

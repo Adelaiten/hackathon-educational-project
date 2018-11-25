@@ -31,7 +31,7 @@ public class AllSQLDAOs implements AllDAOs {
 
     @Override
     public DAOSession getDAOSession() {
-        return new DAOSessionSQL(cookieHelper);
+        return new DAOSessionSQL(connection);
     }
 
     @Override
