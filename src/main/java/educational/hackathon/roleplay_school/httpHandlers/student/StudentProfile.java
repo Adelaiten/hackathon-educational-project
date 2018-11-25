@@ -2,7 +2,9 @@ package educational.hackathon.roleplay_school.httpHandlers.student;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import educational.hackathon.roleplay_school.dao.AllDAOs;
 import educational.hackathon.roleplay_school.helpers.CookieHelper;
+import educational.hackathon.roleplay_school.models.Account;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
@@ -12,9 +14,11 @@ import java.net.HttpCookie;
 import java.util.Optional;
 
 public class StudentProfile implements HttpHandler {
+    private AllDAOs allDAOs;
     private CookieHelper cookieHelper;
 
-    public StudentProfile(CookieHelper cookieHelper){
+    public StudentProfile(AllDAOs allDAOs, CookieHelper cookieHelper){
+        this.allDAOs = allDAOs;
         this.cookieHelper = cookieHelper;
     }
 
@@ -40,11 +44,13 @@ public class StudentProfile implements HttpHandler {
     }
 
     private void createResponse(HttpExchange httpExchange) throws IOException{
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("template/student/profile");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("template/student/profile.twig");
         JtwigModel model = JtwigModel.newModel();
         // TODO modify dao to request data based on sessionId
 //        String nickname = appDAOs.getDAOAccounts().getAccountBySessionId(sessionId).getNickname();
-//        model.with("userName", nickname);
+        Account account = new Account(1, "trzaskus", "qwerty", "Karol", "Trzaska", "k.trzas@ka.pl", "student");
+        model.with("accountName", account.getName());
+        model.with("accountSurname", account.getSurname());
 //        model.with("userNickname", nickname);
         String response = template.render(model);
         httpExchange.sendResponseHeaders(200, response.length());

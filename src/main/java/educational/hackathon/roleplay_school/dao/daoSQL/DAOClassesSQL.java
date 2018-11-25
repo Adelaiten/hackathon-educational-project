@@ -19,8 +19,8 @@ public class DAOClassesSQL implements DAOClasses {
 
     private Connection connection;
 
-    public DAOClassesSQL(){
-        connection = SQLConnector.getConnection();
+    public DAOClassesSQL(Connection connection){
+        connection = connection;
     }
 
     @Override
