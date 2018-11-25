@@ -57,6 +57,24 @@ public class DAOAccountsSQL implements DAOAccounts {
         }
     }
 
+    public int getExpFromDatabase(int idAccount) throws SQLException{
+        String sqlExpQuery = "SELECT exp FROM account WHERE id_account = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlExpQuery);
+        preparedStatement.setInt(1, idAccount);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return resultSet.getInt("exp");
+    }
+
+    public void increaseExpInDatabase(int idAccount, int exp) throws SQLException{
+        int expFromDatabase = getExpFromDatabase(idAccount);
+        expFromDatabase += exp;
+        String sqlIncreaseExpQuery = "UPDATE account SET exp = ? WHERE id_account = ?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlIncreaseExpQuery);
+        preparedStatement.setInt(1, exp);
+        preparedStatement.setInt(2, idAccount);
+        preparedStatement.executeUpdate();
+    }
+
     public int getStudentCoins(int idAccount) throws SQLException{
         String coinsQuery = "SELECT coins FROM account WHERE id_account = ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(coinsQuery);
