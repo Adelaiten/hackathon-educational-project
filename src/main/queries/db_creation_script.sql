@@ -6,6 +6,7 @@ salt VARCHAR,
 name VARCHAR,
 surname VARCHAR,
 email VARCHAR,
+role VARCHAR,
 PRIMARY KEY (id_account));
 
 CREATE TABLE quest(

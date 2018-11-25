@@ -26,6 +26,7 @@ public class DAOAccountsSQL implements DAOAccounts {
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, nickname);
         ps.setString(2, password);
+        System.out.println(ps.toString());
         ResultSet resultSet = ps.executeQuery();
         if(resultSet.next()){
             return extractAccountFromResult(resultSet);
