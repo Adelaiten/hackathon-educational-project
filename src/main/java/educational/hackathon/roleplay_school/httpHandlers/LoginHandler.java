@@ -80,7 +80,7 @@ public class LoginHandler implements HttpHandler {
 
 
             if (account.getRole().equals("TEACHER")){
-                httpExchange.getResponseHeaders().add("Location", "/teacherAddQuest");
+                httpExchange.getResponseHeaders().add("Location", "/teacherProfile");
             } else if (account.getRole().equals("STUDENT")){
                 httpExchange.getResponseHeaders().add("Location", "/studentProfile");
             }

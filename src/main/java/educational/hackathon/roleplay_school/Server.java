@@ -15,6 +15,8 @@ import educational.hackathon.roleplay_school.httpHandlers.student.StudentLeaderb
 import educational.hackathon.roleplay_school.httpHandlers.student.StudentProfile;
 import educational.hackathon.roleplay_school.httpHandlers.student.StudentQuests;
 import educational.hackathon.roleplay_school.httpHandlers.teacher.TeacherAddQuest;
+import educational.hackathon.roleplay_school.httpHandlers.teacher.TeacherLeaderboard;
+import educational.hackathon.roleplay_school.httpHandlers.teacher.TeacherProfile;
 
 import java.net.InetSocketAddress;
 import java.sql.Connection;
@@ -27,6 +29,7 @@ public class Server {
     }
 
     public void run() {
+
         try {
             CookieHelper cookieHelper = new CookieHelper("cookie");
             Connection connection = SQLConnector.getConnection();
@@ -34,11 +37,13 @@ public class Server {
             DAOSession daoSession = new DAOSessionSQL(connection);
             HttpServer httpServer = HttpServer.create(new InetSocketAddress(8000), 0);
             httpServer.createContext("/", new LoginHandler(daoAccounts, daoSession, cookieHelper));
-            httpServer.createContext("/studentProfile", new StudentProfile(allDAOs, new CookieHelper("")));
-            httpServer.createContext("/studentQuests", new StudentQuests(allDAOs, new CookieHelper("")));
-            httpServer.createContext("/studentLeaderboard", new StudentLeaderboard(allDAOs, new CookieHelper("")));
+            httpServer.createContext("/studentProfile", new StudentProfile(allDAOs, cookieHelper));
+            httpServer.createContext("/studentQuests", new StudentQuests(allDAOs, cookieHelper));
+            httpServer.createContext("/studentLeaderboard", new StudentLeaderboard(allDAOs, cookieHelper));
 
-            httpServer.createContext("/teacherAddQuest", new TeacherAddQuest(allDAOs, new CookieHelper("")));
+            httpServer.createContext("/teacherProfile", new TeacherProfile(allDAOs, cookieHelper));
+            httpServer.createContext("/teacherAddQuest", new TeacherAddQuest(allDAOs, cookieHelper));
+            httpServer.createContext("/teacherLeaderboard", new TeacherLeaderboard(allDAOs, cookieHelper));
 
             httpServer.createContext("/static", new Static());
             httpServer.setExecutor(null);
