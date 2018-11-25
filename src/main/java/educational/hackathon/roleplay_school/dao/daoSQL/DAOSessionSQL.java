@@ -22,7 +22,7 @@ public class DAOSessionSQL implements DAOSession {
         ResultSet resultSet = preparedStatement.executeQuery();
         Account account = null;
         while(resultSet.next()) {
-            PreparedStatement ps = connection.prepareStatement("select * FROM account WHERE id_account = ?");
+            PreparedStatement ps = connection.prepareStatement("select * FROM account WHERE id_account = ?;");
             ps.setInt(1, resultSet.getInt("id_account"));
             ResultSet rSet = ps.executeQuery();
             while(rSet.next()) {
@@ -41,7 +41,7 @@ public class DAOSessionSQL implements DAOSession {
 
     @Override
     public void setSessionId(String sessionId, int accountId) throws SQLException{
-        PreparedStatement preparedStatement = connection.prepareStatement("update sessions SET session_id = ? WHERE id_account = ?;");
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO sessions (session_id, id_account) VALUES (?, ?);");
         preparedStatement.setString(1, sessionId);
         preparedStatement.setInt(2, accountId);
         preparedStatement.executeUpdate();
