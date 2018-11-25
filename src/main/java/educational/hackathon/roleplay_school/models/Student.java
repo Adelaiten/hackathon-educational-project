@@ -4,7 +4,7 @@ public class Student extends Account {
     private int idClass;
     private int idStudent;
 
-    public Student(int idAccount, int idStudent, String username, String passwordHash, String name, String surname, String email, int role, int idClass) {
+    public Student(int idAccount, int idStudent, String username, String passwordHash, String name, String surname, String email, String role, int idClass) {
         super(idAccount, username, passwordHash, name, surname, email, role);
         this.idClass = idClass;
         this.idStudent = idStudent;
