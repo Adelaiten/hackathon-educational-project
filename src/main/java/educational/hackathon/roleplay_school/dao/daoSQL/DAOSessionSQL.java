@@ -46,4 +46,10 @@ public class DAOSessionSQL implements DAOSession {
         preparedStatement.setInt(2, accountId);
         preparedStatement.executeUpdate();
     }
+
+    public void deleteSessionId(String sessionId) throws SQLException{
+        PreparedStatement preparedStatement = connection.prepareStatement("update sessions SET session_id = null WHERE session_id = ?;");
+        preparedStatement.setString(1, sessionId);
+        preparedStatement.executeUpdate();
+    }
 }
