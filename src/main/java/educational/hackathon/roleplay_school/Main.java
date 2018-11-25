@@ -8,8 +8,8 @@ import java.sql.Connection;
 
 public class Main {
     public static void main(String[] args) {
-        Connection connection = SQLConnector.getConnection();
-        DAOAccountsSQL daoAccountsSQL = new DAOAccountsSQL(connection);
-        Account account = daoAccountsSQL.getAccountsByNicknameAndPassword(, )
+//        Connection connection = SQLConnector.getConnection();
+//        DAOAccountsSQL daoAccountsSQL = new DAOAccountsSQL(connection);
+//        Account account = daoAccountsSQL.getAccountsByNicknameAndPassword(, );
     }
 }
