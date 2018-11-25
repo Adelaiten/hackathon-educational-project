@@ -78,9 +78,9 @@ public class LoginHandler implements HttpHandler {
 
 
             if (account.getRole().equals("TEACHER")){
-                httpExchange.getResponseHeaders().add("Location", "/studentProfile");
+                httpExchange.getResponseHeaders().add("Location", "/teacherAddQuest");
             } else if (account.getRole().equals("STUDENT")){
-                httpExchange.getResponseHeaders().add("Location", "/student/profile");
+                httpExchange.getResponseHeaders().add("Location", "/studentProfile");
             }
         } catch (NoSuchElementException e) {
             httpExchange.getResponseHeaders().add("Location", "/");

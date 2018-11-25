@@ -1,23 +1,21 @@
-package educational.hackathon.roleplay_school.httpHandlers.student;
+package educational.hackathon.roleplay_school.httpHandlers.teacher;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import educational.hackathon.roleplay_school.dao.AllDAOs;
 import educational.hackathon.roleplay_school.helpers.CookieHelper;
-import educational.hackathon.roleplay_school.models.Quest;
+import educational.hackathon.roleplay_school.models.Account;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
-public class StudentQuests implements HttpHandler {
+public class TeacherAddQuest implements HttpHandler {
     private AllDAOs allDAOs;
     private CookieHelper cookieHelper;
 
-    public StudentQuests(AllDAOs allDAOs, CookieHelper cookieHelper){
+    public TeacherAddQuest(AllDAOs allDAOs, CookieHelper cookieHelper){
         this.allDAOs = allDAOs;
         this.cookieHelper = cookieHelper;
     }
@@ -44,26 +42,14 @@ public class StudentQuests implements HttpHandler {
     }
 
     private void createResponse(HttpExchange httpExchange) throws IOException{
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("template/student/quests.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("template/teacher/home.twig");
         JtwigModel model = JtwigModel.newModel();
         // TODO modify dao to request data based on sessionId
 //        String nickname = appDAOs.getDAOAccounts().getAccountBySessionId(sessionId).getNickname();
-        Quest quest1 = new Quest(1, "Do homework", "Very long description lorem ipsum non omnis moriar " +
-                "hack yeah 2018 hackathooooon #nosleep", 20, 10.0, 1);
-        Quest quest2 = new Quest(2, "Make christmas decorations", "HOHOHO!", 10, 13.0, 1);
-        Quest quest3 = new Quest(3, "Just example", "Nice description here please!", 7, 7.0, 1);
-        Quest quest4 = new Quest(4, "Just example", "Nice description here please!", 7, 7.0, 1);
-        Quest quest5 = new Quest(5, "Just example", "Nice description here please!", 7, 7.0, 1);
-        List<Quest> quests = new ArrayList<>();
-        quests.add(quest1);
-        quests.add(quest2);
-        quests.add(quest3);
-        quests.add(quest4);
-        quests.add(quest5);
-        model.with("quests", quests);
+
 //        model.with("userNickname", nickname);
         String response = template.render(model);
-        httpExchange.sendResponseHeaders(200, 0);
+        httpExchange.sendResponseHeaders(200, response.length());
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());
         os.close();
