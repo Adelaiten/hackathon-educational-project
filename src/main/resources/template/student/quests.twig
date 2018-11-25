@@ -1,0 +1,136 @@
+{% extends "../home.twig" %}
+
+{% block content %}
+<div class="content-user">
+
+    <div class="col-sm-9">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#todo">ToDo</a></li>
+            <li><a data-toggle="tab" href="#toverify">To verify</a></li>
+            <li><a data-toggle="tab" href="#done">Done</a></li>
+        </ul>
+
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="todo">
+                <hr>
+
+                <table class="table"  id="myList">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Exp award</th>
+                        <th scope="col">Gold Award</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for quest in quests %}
+                    <tr>
+                        <th scope="row">{{loop.index}}</th>
+                        <td>{{ quest.getName() }}</td>
+                        <td><button href="#todo_desc{{loop.index}}">Show below</button></td>
+                        <td>{{ quest.getExp() }}</td>
+                        <td>{{ quest.getAmount() }}</td>
+                        <td><a href="">Accept this quest</a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <hr>
+
+            </div><!--/tab-pane-->
+            <div class="tab-pane" id="toverify">
+
+                <hr>
+
+                <table class="table"  id="myList">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Exp award</th>
+                        <th scope="col">Gold Award</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for quest in quests %}
+                        <tr>
+                            <th scope="row">{{loop.index}}</th>
+                            <td>{{ quest.getName() }}</td>
+                            <td><button href="#toverify_desc{{loop.index}}">Show below</button></td>
+                            <td>{{ quest.getExp() }}</td>
+                            <td>{{ quest.getAmount() }}</td>
+                            <td><a href="">Cancel</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <hr>
+
+
+            </div><!--/tab-pane-->
+            <div class="tab-pane" id="done">
+                <hr>
+
+                <table class="table"  id="myList">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Exp award</th>
+                        <th scope="col">Gold Award</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for quest in quests %}
+                        <tr>
+                            <th scope="row">{{loop.index}}</th>
+                            <td>{{ quest.getName() }}</td>
+                            <td><button href="#done_desc{{loop.index}}">Show below</button></td>
+                            <td>{{ quest.getExp() }}</td>
+                            <td>{{ quest.getAmount() }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <hr>
+
+            </div>
+
+        </div><!--/tab-pane-->
+    </div><!--/tab-content-->
+
+
+
+    <!-- Widok opisu questow -->
+    <div class="tab-content col-sm-12">
+        <div class="tab-pane" id="clear" role="tabpanel"></div>
+        {% for quest in quests %}
+            <div class="tab-pane" id="#todo_desc{{loop.index}}" role="tabpanel">{{quest.getDescription()}}</div>
+        {% endfor %}
+        {% for quest in quests %}
+            <div class="tab-pane" id="#toverify_desc{{loop.index}}" role="tabpanel">{{quest.getDescription()}}</div>
+        {% endfor %}
+        {% for quest in quests %}
+            <div class="tab-pane" id="#done_desc{{loop.index}}" role="tabpanel">{{quest.getDescription()}}</div>
+        {% endfor %}
+    </div>
+    <script>
+        $('#myList tbody tr td button').on('click', function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+    </script>
+
+
+</div>
+{% endblock %}

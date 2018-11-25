@@ -4,13 +4,15 @@ public class Quest {
     private int idQuest;
     private String name;
     private String description;
+    private int exp;
     private double amount;
     private int questType;
 
-    public Quest(int idQuest, String name, String description, double amount, int questType) {
+    public Quest(int idQuest, String name, String description, int exp, double amount, int questType) {
         this.idQuest = idQuest;
         this.name = name;
         this.description = description;
+        this.exp = exp;
         this.amount = amount;
         this.questType = questType;
     }
@@ -37,6 +39,14 @@ public class Quest {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getExp() {
+        return exp;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
     }
 
     public double getAmount() {

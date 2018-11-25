@@ -29,7 +29,7 @@ public class DAOQuest implements DAOQuestInterface {
             String description = resultSet.getString("description");
             double amount = resultSet.getDouble("amount");
             int questType = resultSet.getInt("quest_type");
-            quest = new Quest(id, name, description, amount, questType);
+            quest = new Quest(id, name, description, 0, amount, questType);
         }
 
         return quest;
@@ -48,7 +48,7 @@ public class DAOQuest implements DAOQuestInterface {
                 String description = resultSet.getString("description");
                 double amount = resultSet.getDouble("amount");
                 int questType = resultSet.getInt("quest_type");
-                Quest quest = new Quest(questId, name, description, amount, questType);
+                Quest quest = new Quest(questId, name, description, 0, amount, questType);
                 questsList.add(quest);
             }
         }
