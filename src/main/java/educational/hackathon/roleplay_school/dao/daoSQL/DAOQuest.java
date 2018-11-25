@@ -2,6 +2,7 @@ package educational.hackathon.roleplay_school.dao.daoSQL;
 
 import educational.hackathon.roleplay_school.dao.DAOQuestInterface;
 import educational.hackathon.roleplay_school.models.Quest;
+import sun.rmi.runtime.NewThreadAction;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,6 +36,23 @@ public class DAOQuest implements DAOQuestInterface {
         return quest;
     }
 
+    public List<Quest> getAllQuestsFromDatabase() throws SQLException {
+        List<Quest> allQuests = new ArrayList<>();
+        String allCookiesQuery = "SELECT * FROM quest;";
+        PreparedStatement preparedStatement = connection.prepareStatement(allCookiesQuery);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while(resultSet.next()) {
+            int idQuest = resultSet.getInt("id_quest");
+            String name = resultSet.getString("name");
+            String description = resultSet.getString("description");
+            int amount = resultSet.getInt("amount");
+            String questType = resultSet.getString("quest_type");
+            int exp = resultSet.getInt("exp");
+            Quest quest = new Quest(idQuest, name, description, exp, amount, questType);
+            allQuests.add(quest);
+        }
+        return allQuests;
+    }
     @Override
     public List<Quest> getAllStudentQuests(int accountsId) throws SQLException{
         List<Integer> studentIdQuests = getStudentQuestsIds(accountsId);
@@ -47,12 +65,23 @@ public class DAOQuest implements DAOQuestInterface {
                 String name = resultSet.getString("name");
                 String description = resultSet.getString("description");
                 double amount = resultSet.getDouble("amount");
+<<<<<<< HEAD
                 String questType = resultSet.getString("quest_type");
                 Quest quest = new Quest(questId, name, description, 0, amount, questType);
+=======
+                int questType = resultSet.getInt("quest_type");
+                int exp = resultSet.getInt("exp");
+                Quest quest = new Quest(questId, name, description, exp, amount, questType);
+>>>>>>> 503b96f124dcb66135e6a670518156e89955a44b
                 questsList.add(quest);
             }
         }
          return questsList;
+    }
+    public void UpdateInDatabaseEditedQuest(Quest quest) throws SQLException{
+        String updateQuestQuery = "UPDATE quest SET id_quest = ?, name = ?, description = ?, amount = ?, exp = ?, quest_type = ?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(updateQuestQuery);
+        preparedStatement.executeUpdate();
     }
 
     public void addQuestToDatabase(String name, String description, int amount, int exp, String quest_type) throws SQLException {
