@@ -1,4 +1,4 @@
-CREATE TABLE account(
+﻿CREATE TABLE account(
 id_account SERIAL NOT NULL,
 username VARCHAR,
 passwd_hash VARCHAR,
@@ -6,6 +6,7 @@ salt VARCHAR,
 name VARCHAR,
 surname VARCHAR,
 email VARCHAR,
+role VARCHAR,
 PRIMARY KEY (id_account));
 
 CREATE TABLE quest(
