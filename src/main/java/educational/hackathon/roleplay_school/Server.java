@@ -1,15 +1,12 @@
 package educational.hackathon.roleplay_school;
 
 import com.sun.net.httpserver.HttpServer;
-<<<<<<< HEAD
 import educational.hackathon.roleplay_school.connectors.SQLConnector;
 import educational.hackathon.roleplay_school.dao.DAOAccounts;
 import educational.hackathon.roleplay_school.dao.DAOSession;
 import educational.hackathon.roleplay_school.dao.daoSQL.DAOAccountsSQL;
 import educational.hackathon.roleplay_school.dao.daoSQL.DAOSessionSQL;
-=======
 import educational.hackathon.roleplay_school.dao.AllDAOs;
->>>>>>> jtwig
 import educational.hackathon.roleplay_school.handlers.LoginPageHandler;
 import educational.hackathon.roleplay_school.handlers.Static;
 import educational.hackathon.roleplay_school.helpers.CookieHelper;
@@ -28,8 +25,12 @@ public class Server {
 
     public void run() {
         try {
+            CookieHelper cookieHelper = new CookieHelper("cookie");
+            Connection connection = SQLConnector.getConnection();
+            DAOAccounts daoAccounts = new DAOAccountsSQL(connection);
+            DAOSession daoSession = new DAOSessionSQL(cookieHelper);
             HttpServer httpServer = HttpServer.create(new InetSocketAddress(8000), 0);
-            httpServer.createContext("/", new LoginPageHandler());
+            httpServer.createContext("/", new LoginHandler(daoAccounts, daoSession, cookieHelper));
             httpServer.createContext("/studentProfile", new StudentProfile(allDAOs, new CookieHelper("")));
             httpServer.createContext("/static", new Static());
             httpServer.setExecutor(null);

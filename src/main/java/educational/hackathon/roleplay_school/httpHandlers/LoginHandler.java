@@ -64,7 +64,7 @@ public class LoginHandler implements HttpHandler {
         String formData = br.readLine();
         System.out.println(formData);
         Map inputs = parseFormData(formData);
-        String password = (String) inputs.get("passwd_hash");
+        String password = (String) inputs.get("password");
         String nick = (String) inputs.get("nick");
         System.out.println(nick + " " + password);
         try {
@@ -77,13 +77,10 @@ public class LoginHandler implements HttpHandler {
 
 
             if (account.getRole().equals("TEACHER")){
-                httpExchange.getResponseHeaders().add("Location", "/teacher/profile");
+                httpExchange.getResponseHeaders().add("Location", "/studentProfile");
             } else if (account.getRole().equals("STUDENT")){
                 httpExchange.getResponseHeaders().add("Location", "/student/profile");
-            } else {
-                httpExchange.getResponseHeaders().add("Location", "/student/profile");
             }
-
         } catch (NoSuchElementException e) {
             httpExchange.getResponseHeaders().add("Location", "/");
             System.out.println("Coudn't find object in db");
