@@ -40,7 +40,7 @@ public class StudentProfile implements HttpHandler {
     }
 
     private void createResponse(HttpExchange httpExchange) throws IOException{
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("template/student/profile");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("template/student/profile.twig");
         JtwigModel model = JtwigModel.newModel();
         // TODO modify dao to request data based on sessionId
 //        String nickname = appDAOs.getDAOAccounts().getAccountBySessionId(sessionId).getNickname();
