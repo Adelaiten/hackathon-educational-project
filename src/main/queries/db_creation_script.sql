@@ -1,4 +1,4 @@
-CREATE TABLE account(
+﻿CREATE TABLE account(
 id_account SERIAL NOT NULL,
 username VARCHAR,
 passwd_hash VARCHAR,
