@@ -20,7 +20,7 @@ public class DAOClassesSQL implements DAOClasses {
     private Connection connection;
 
     public DAOClassesSQL(Connection connection){
-        connection = connection;
+        this.connection = connection;
     }
 
     @Override
