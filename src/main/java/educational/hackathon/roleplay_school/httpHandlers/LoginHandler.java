@@ -7,10 +7,7 @@ import educational.hackathon.roleplay_school.dao.daoSQL.DAOAccountsSQL;
 import educational.hackathon.roleplay_school.helpers.CookieHelper;
 import educational.hackathon.roleplay_school.models.Account;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.HttpCookie;
 import java.net.URLDecoder;
 import java.sql.SQLException;
@@ -18,6 +15,7 @@ import java.util.*;
 
 
 public class LoginHandler implements HttpHandler {
+    private final String LOGIN_PAGE_URL = "static/index.html";
     private DAOAccounts daoAccounts;
     private CookieHelper cookieHelper;
 
@@ -36,8 +34,23 @@ public class LoginHandler implements HttpHandler {
         }
     }
 
-    private void handleGETRequest(HttpExchange httpExchange){
-        //TODO: load login twig here
+    private void handleGETRequest(HttpExchange httpExchange) throws IOException {
+        StringBuilder result = new StringBuilder();
+        String response = "";
+        ClassLoader classLoader = getClass().getClassLoader();
+        File loginPage = new File(classLoader.getResource(LOGIN_PAGE_URL).getFile());
+
+        try (Scanner scanner = new Scanner(loginPage)){
+            while (scanner.hasNextLine()){
+                String line = scanner.nextLine();
+                result.append(line).append("\n");
+            }
+            response = result.toString();
+        } catch (IOException e){
+            e.printStackTrace();
+            System.out.println(String.format("Couldn't read %s file", LOGIN_PAGE_URL));
+        }
+        sendResponse(httpExchange, response);
     }
 
     private  void handlePOSTRequest(HttpExchange httpExchange) throws IOException {
@@ -86,5 +99,12 @@ public class LoginHandler implements HttpHandler {
             map.put(keyValue[0], value);
         }
         return map;
+    }
+
+    private void sendResponse(HttpExchange httpExchange, String response) throws IOException {
+        httpExchange.sendResponseHeaders(200, response.length());
+        OutputStream os = httpExchange.getResponseBody();
+        os.write(response.getBytes());
+        os.close();
     }
 }
