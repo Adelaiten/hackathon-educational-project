@@ -11,14 +11,15 @@ public abstract class AbstractHandler {
         String method = httpExchange.getRequestMethod();
         String response = "<html><body>";
         List<String> cookies = httpExchange.getRequestHeaders().get("Cookie");
-        if(method.equals("GET")){
+        if (method.equals("GET")) {
             response += "GET";
             response += " <br>" +
                     "<img src = '../static/image/1.png'>obrazek</img>" +
+                    "<img src = '../static/image/2.png'>obrazek2</img>" +
                     "</body></html>";
 
         }
-        if(method.equals("POST")){
+        if (method.equals("POST")) {
             response = "POST";
         }
 
@@ -26,5 +27,32 @@ public abstract class AbstractHandler {
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());
         os.close();
+    }
+
+    public static void sendResponse(HttpExchange httpExchange, String path, String response) throws IOException {
+        OutputStream os = httpExchange.getResponseBody();
+
+        try {
+            byte[] bs = response.getBytes();
+            httpExchange.getResponseHeaders().set("Location", path);
+            httpExchange.sendResponseHeaders(302, bs.length);
+            os.write(bs);
+            os.close();
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+
+    public static void sendRedirectResponse(HttpExchange httpExchange, String path, String response) throws IOException {
+        OutputStream os = httpExchange.getResponseBody();
+        try {
+            byte[] bs = response.getBytes();
+            httpExchange.getResponseHeaders().set("Location", path);
+            httpExchange.sendResponseHeaders(302, -1);
+            os.write(bs);
+            os.close();
+        } catch (IOException e) {
+            e.getMessage();
+        }
     }
 }
