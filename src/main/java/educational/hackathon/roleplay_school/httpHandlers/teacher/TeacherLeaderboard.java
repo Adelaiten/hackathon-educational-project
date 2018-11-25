@@ -5,7 +5,6 @@ import com.sun.net.httpserver.HttpHandler;
 import educational.hackathon.roleplay_school.dao.AllDAOs;
 import educational.hackathon.roleplay_school.helpers.CookieHelper;
 import educational.hackathon.roleplay_school.models.Account;
-import educational.hackathon.roleplay_school.models.Student;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
@@ -14,11 +13,11 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeacherAddQuest implements HttpHandler {
+public class TeacherLeaderboard implements HttpHandler {
     private AllDAOs allDAOs;
     private CookieHelper cookieHelper;
 
-    public TeacherAddQuest(AllDAOs allDAOs, CookieHelper cookieHelper){
+    public TeacherLeaderboard(AllDAOs allDAOs, CookieHelper cookieHelper){
         this.allDAOs = allDAOs;
         this.cookieHelper = cookieHelper;
     }
@@ -45,7 +44,7 @@ public class TeacherAddQuest implements HttpHandler {
     }
 
     private void createResponse(HttpExchange httpExchange) throws IOException{
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("template/teacher/addQuest.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("template/teacher/leaderboard.twig");
         JtwigModel model = JtwigModel.newModel();
         // TODO modify dao to request data based on sessionId
 //        String nickname = appDAOs.getDAOAccounts().getAccountBySessionId(sessionId).getNickname();

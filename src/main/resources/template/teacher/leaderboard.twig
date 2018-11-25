@@ -1,0 +1,28 @@
+{% extends "home.twig" %}
+
+{% block content %}
+<div class="content">
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Experience</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for student in students %}
+        <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ student.getName() }}</td>
+            <td>{{ student.getSurname() }}</td>
+            <td>111</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}
