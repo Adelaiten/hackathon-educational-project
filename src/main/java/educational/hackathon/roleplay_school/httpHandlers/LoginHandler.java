@@ -3,7 +3,9 @@ package educational.hackathon.roleplay_school.httpHandlers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import educational.hackathon.roleplay_school.dao.DAOAccounts;
+import educational.hackathon.roleplay_school.dao.DAOSession;
 import educational.hackathon.roleplay_school.dao.daoSQL.DAOAccountsSQL;
+import educational.hackathon.roleplay_school.dao.daoSQL.DAOSessionSQL;
 import educational.hackathon.roleplay_school.helpers.CookieHelper;
 import educational.hackathon.roleplay_school.models.Account;
 
@@ -20,10 +22,12 @@ import java.util.*;
 public class LoginHandler implements HttpHandler {
     private DAOAccounts daoAccounts;
     private CookieHelper cookieHelper;
+    private DAOSession daoSession;
 
-    public LoginHandler(DAOAccounts daoAccounts, CookieHelper cookieHelper) {
+    public LoginHandler(DAOAccounts daoAccounts, DAOSession daoSession, CookieHelper cookieHelper) {
         this.daoAccounts = daoAccounts;
         this.cookieHelper = cookieHelper;
+        this.daoSession = daoSession;
     }
 
     @Override
@@ -47,30 +51,29 @@ public class LoginHandler implements HttpHandler {
         String formData = br.readLine();
         System.out.println(formData);
         Map inputs = parseFormData(formData);
-        String password = (String) inputs.get("password");
+        String password = (String) inputs.get("passwd_hash");
         String nick = (String) inputs.get("nick");
         System.out.println(nick + " " + password);
         try {
             Account account = daoAccounts.getAccountsByNicknameAndPassword(nick, password);
             String sessionId = UUID.randomUUID().toString();
             account.setSessionId(sessionId);
-            //TODO: write sessionID to DB
+            daoSession.setSessionId(sessionId, account.getIdAccount()); //TODO implement this method
             Optional<HttpCookie> cookie = Optional.of(new HttpCookie(cookieHelper.getSESSION_COOKIE_NAME(), sessionId));
             httpExchange.getResponseHeaders().add("Set-Cookie", cookie.get().toString());
 
-            /**
-             * TODO: refactor with using hashing
-            if (account.getAccessLevel() == AccessLevel.ADMIN){
-                httpExchange.getResponseHeaders().add("Location", "/admin/profile");
-            } else if (account.getAccessLevel() == AccessLevel.MENTOR){
-                httpExchange.getResponseHeaders().add("Location", "/mentor/profile");
-            }*/
 
+            if (account.getRole()== 1){
+                httpExchange.getResponseHeaders().add("Location", "/teacher/profile");
+            } else if (account.getRole() == 2){
+                httpExchange.getResponseHeaders().add("Location", "/student/profile");
+            }
 
         } catch (NoSuchElementException e) {
             httpExchange.getResponseHeaders().add("Location", "/");
+            System.out.println("Coudn't find object in db");
         } catch (SQLException e){
-            //TODO: handle this shit
+            httpExchange.getResponseHeaders().add("Location", "/");
             System.out.println("wrong query");
         }
         httpExchange.sendResponseHeaders(303, 0);

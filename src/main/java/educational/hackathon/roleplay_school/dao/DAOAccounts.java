@@ -6,5 +6,6 @@ import java.sql.SQLException;
 import java.util.NoSuchElementException;
 
 public interface DAOAccounts {
+    public Account getAccountByNickname(String nickname) throws SQLException, NoSuchElementException;
     public Account getAccountsByNicknameAndPassword(String nickname, String password) throws SQLException, NoSuchElementException;
 }
