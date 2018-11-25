@@ -6,9 +6,9 @@ public class Quest {
     private String description;
     private int exp;
     private double amount;
-    private int questType;
+    private String questType;
 
-    public Quest(int idQuest, String name, String description, int exp, double amount, int questType) {
+    public Quest(int idQuest, String name, String description, int exp, double amount, String questType) {
         this.idQuest = idQuest;
         this.name = name;
         this.description = description;
@@ -57,11 +57,11 @@ public class Quest {
         this.amount = amount;
     }
 
-    public int getQuestType() {
+    public String getQuestType() {
         return questType;
     }
 
-    public void setQuestType(int questType) {
+    public void setQuestType(String questType) {
         this.questType = questType;
     }
 }
