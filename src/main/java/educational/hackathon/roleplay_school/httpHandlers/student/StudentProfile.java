@@ -11,6 +11,7 @@ import org.jtwig.JtwigTemplate;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpCookie;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class StudentProfile implements HttpHandler {
@@ -27,19 +28,25 @@ public class StudentProfile implements HttpHandler {
         String method = httpExchange.getRequestMethod();
 
         if (method.equals("GET")){
-//            Optional<HttpCookie> cookie = cookieHelper.getSessionIdCookie(httpExchange);
-//            String sessionId = cookie.get().getValue();
-//            sessionId = sessionId.replace("\"", "");
 //
-//            if(appDAOs.getDAOAccounts().isValidUserType( sessionId, "ADMIN")) {
-//                createResponse(httpExchange, sessionId);
-//            } else {
-//                System.out.println("Unauthorized request for admin");
-//                httpExchange.getResponseHeaders().add("Location", "/");
-//                httpExchange.sendResponseHeaders(303, 0);
-//
-//            }
-            createResponse(httpExchange);
+            Optional<HttpCookie> cookie = cookieHelper.getSessionIdCookie(httpExchange);
+            String sessionId = cookie.get().getValue();
+            sessionId = sessionId.replace("\"", "");
+            try {
+                if (allDAOs.getDAOAccounts().isValidUserType(sessionId, "ADMIN")) {
+                    createResponse(httpExchange);
+                } else {
+                    System.out.println("Unauthorized request for admin");
+                    httpExchange.getResponseHeaders().add("Location", "/");
+                    httpExchange.sendResponseHeaders(303, 0);
+
+                }
+                createResponse(httpExchange);
+            } catch (SQLException e){
+                e.printStackTrace();
+                httpExchange.getResponseHeaders().add("Location", "/");
+                httpExchange.sendResponseHeaders(303, 0);
+            }
         }
     }
 

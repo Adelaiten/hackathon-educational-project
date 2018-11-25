@@ -11,4 +11,5 @@ public interface DAOAccounts {
     void updateAccountInDatabase(Account account) throws SQLException;
     void deleteAccountFromDatabase(int idAccount) throws SQLException;
     Account getAccountBySessionId(String sessionId) throws SQLException;
+    public boolean isValidUserType(String sessionId, String userType) throws SQLException;
 }
