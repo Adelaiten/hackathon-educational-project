@@ -31,7 +31,7 @@ public class Note {
     public void setNote(String note) {
         this.note = note;
     }
-    
+
     public int getAuthor() {
         return authorId;
     }

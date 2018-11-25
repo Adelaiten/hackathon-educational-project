@@ -1,0 +1,86 @@
+body{
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-size:15px;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+header, footer{
+    background: rgba(255,255,255,0.5);
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+
+#login {
+    display: table;
+    width: 100%;
+}
+#form_login {
+    left: 50%;
+    top: 50%;
+    padding:5%;
+    background-color: rgba(255,255,255,0.7);
+    position: absolute;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+    -moz-transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.nav-left-right {
+    background: #5C946E;
+    padding: 15px;
+}
+.nav-left-right ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.nav-left-right a {
+    display: block;
+    width: 60px;
+    color: #ffffff;
+}
+
+.nav-left-right a:hover{
+color: #C6C9C4;
+}
+
+.nav-left {
+    float: left;
+}
+
+.nav-left ul li {
+    float: left;
+}
+
+.nav-right ul li {
+    float: right;
+}
+
+.social-media{
+    text-align: center;
+}
+.social-media i{
+    padding: 5px;
+    color: #5C946E;
+}
