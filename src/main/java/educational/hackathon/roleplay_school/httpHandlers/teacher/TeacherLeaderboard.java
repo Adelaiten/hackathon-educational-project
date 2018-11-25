@@ -10,6 +10,7 @@ import org.jtwig.JtwigTemplate;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,13 +49,18 @@ public class TeacherLeaderboard implements HttpHandler {
         JtwigModel model = JtwigModel.newModel();
         // TODO modify dao to request data based on sessionId
 //        String nickname = appDAOs.getDAOAccounts().getAccountBySessionId(sessionId).getNickname();
-        Account account1 = new Account(1, "trzaskus", "qwerty", "Karol", "Becla", "k.trzas@ka.pl", "STUDENT");
-        Account account2 = new Account(1, "radianos", "qwerty", "Adrian", "Trzaska", "a.trzas@ka.pl", "STUDENT");
-        Account account3 = new Account(1, "ferneddy", "qwerty", "Rafał", "Ostromęcki", "r.trzas@ka.pl", "STUDENT");
+//        Account account1 = new Account(1, "trzaskus", "qwerty", "Karol", "Becla", "k.trzas@ka.pl", "STUDENT");
+//        Account account2 = new Account(1, "radianos", "qwerty", "Adrian", "Trzaska", "a.trzas@ka.pl", "STUDENT");
+//        Account account3 = new Account(1, "ferneddy", "qwerty", "Rafał", "Ostromęcki", "r.trzas@ka.pl", "STUDENT");
         List<Account> accounts = new ArrayList<>();
-        accounts.add(account1);
-        accounts.add(account2);
-        accounts.add(account3);
+        try {
+            accounts = allDAOs.getDAOAccounts().readAllStudents();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+//        accounts.add(account1);
+//        accounts.add(account2);
+//        accounts.add(account3);
         model.with("students", accounts);
 //        model.with("userNickname", nickname);
         String response = template.render(model);
