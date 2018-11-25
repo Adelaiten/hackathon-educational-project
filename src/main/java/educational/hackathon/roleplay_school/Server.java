@@ -15,6 +15,8 @@ import educational.hackathon.roleplay_school.httpHandlers.student.StudentLeaderb
 import educational.hackathon.roleplay_school.httpHandlers.student.StudentProfile;
 import educational.hackathon.roleplay_school.httpHandlers.student.StudentQuests;
 import educational.hackathon.roleplay_school.httpHandlers.teacher.TeacherAddQuest;
+import educational.hackathon.roleplay_school.httpHandlers.teacher.TeacherLeaderboard;
+import educational.hackathon.roleplay_school.httpHandlers.teacher.TeacherProfile;
 
 import java.net.InetSocketAddress;
 import java.sql.Connection;
@@ -38,7 +40,9 @@ public class Server {
             httpServer.createContext("/studentQuests", new StudentQuests(allDAOs, new CookieHelper("")));
             httpServer.createContext("/studentLeaderboard", new StudentLeaderboard(allDAOs, new CookieHelper("")));
 
+            httpServer.createContext("/teacherProfile", new TeacherProfile(allDAOs, new CookieHelper("")));
             httpServer.createContext("/teacherAddQuest", new TeacherAddQuest(allDAOs, new CookieHelper("")));
+            httpServer.createContext("/teacherLeaderboard", new TeacherLeaderboard(allDAOs, new CookieHelper("")));
 
             httpServer.createContext("/static", new Static());
             httpServer.setExecutor(null);
