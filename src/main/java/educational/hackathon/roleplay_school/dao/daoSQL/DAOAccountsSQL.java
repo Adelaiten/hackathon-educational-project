@@ -166,13 +166,17 @@ public class DAOAccountsSQL implements DAOAccounts {
         account.setPasswordHash(resultSet.getString("passwd_hash"));
         account.setSalt(resultSet.getString("salt"));
         account.setRole(resultSet.getString("role"));
+        account.setGold(resultSet.getInt("coins"));
+        account.setExp(resultSet.getInt("exp"));
+        account.setLevel(account.getExp()/100 + 1);
         return account;
     }
 
     @Override
     public boolean isValidUserType(String sessionId, String userType) throws SQLException{
         boolean isValid = false;
-        Account account = getAccountBySessionId(sessionId);
+        DAOSessionSQL daoSessionSQL = new DAOSessionSQL(connection);
+        Account account = daoSessionSQL.getAccountBySessionID(sessionId);
         if(account.getRole().equals(userType)){
             isValid = true;
         }

@@ -12,6 +12,33 @@ public class Account {
     private String surname;
     private String email;
     private String role;
+    private int level;
+    private int exp;
+    private int gold;
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getExp() {
+        return exp;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
 
     public Account(){}
 

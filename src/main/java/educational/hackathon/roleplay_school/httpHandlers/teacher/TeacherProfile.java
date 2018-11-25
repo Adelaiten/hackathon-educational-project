@@ -34,7 +34,7 @@ public class TeacherProfile implements HttpHandler {
             sessionId = sessionId.replace("\"", "");
             try {
                 if (allDAOs.getDAOAccounts().isValidUserType(sessionId, "TEACHER")) {
-                    createResponse(httpExchange);
+                    createResponse(httpExchange, sessionId);
                 } else {
                     System.out.println("Unauthorized request for teacher");
                     httpExchange.getResponseHeaders().add("Location", "/");
@@ -50,14 +50,18 @@ public class TeacherProfile implements HttpHandler {
         }
     }
 
-    private void createResponse(HttpExchange httpExchange) throws IOException{
+    private void createResponse(HttpExchange httpExchange, String sessionId) throws IOException, SQLException{
         JtwigTemplate template = JtwigTemplate.classpathTemplate("template/teacher/profile.twig");
         JtwigModel model = JtwigModel.newModel();
         // TODO modify dao to request data based on sessionId
 //        String nickname = appDAOs.getDAOAccounts().getAccountBySessionId(sessionId).getNickname();
-        Account account = new Account(1, "trzaskus", "qwerty", "Karol", "Trzaska", "k.trzas@ka.pl", "student");
+        Account account = allDAOs.getDAOAccounts().getAccountBySessionId(sessionId);
+//        Account account = new Account(1, "trzaskus", "qwerty", "Karol", "Trzaska", "k.trzas@ka.pl", "student");
         model.with("accountName", account.getName());
         model.with("accountSurname", account.getSurname());
+        model.with("exp", account.getExp());
+        model.with("level", account.getLevel());
+        model.with("gold", account.getGold());
 //        model.with("userNickname", nickname);
         String response = template.render(model);
         httpExchange.sendResponseHeaders(200, response.length());

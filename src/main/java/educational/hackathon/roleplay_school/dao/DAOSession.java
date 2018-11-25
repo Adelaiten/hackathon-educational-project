@@ -6,4 +6,5 @@ import java.sql.SQLException;
 
 public interface DAOSession {
     public void setSessionId(String sessionId, int accountId) throws SQLException;
+    public Account getAccountBySessionID(String sessionId) throws SQLException;
 }
