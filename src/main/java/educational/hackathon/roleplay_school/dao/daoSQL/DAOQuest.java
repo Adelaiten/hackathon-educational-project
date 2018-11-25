@@ -55,6 +55,23 @@ public class DAOQuest implements DAOQuestInterface {
          return questsList;
     }
 
+    public void addQuestToDatabase(String name, String description, int amount, int exp, String quest_type) throws SQLException {
+        String addQuestQuery = "INSERT INTO quest (name, description, amount, exp, quest_type) VALUES(?, ?, ?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(addQuestQuery);
+        preparedStatement.setString(1, name);
+        preparedStatement.setString(2, description);
+        preparedStatement.setInt(3, amount);
+        preparedStatement.setInt(4, exp);
+        preparedStatement.setString(5, quest_type);
+        preparedStatement.executeUpdate(addQuestQuery);
+    }
+
+    public void deleteQuestFromDatabase(int idQuest) throws SQLException{
+        String deleteQuestQuery = "DELETE FROM quest WHERE id_quest = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(deleteQuestQuery);
+        preparedStatement.setInt(1, idQuest);
+        preparedStatement.executeUpdate();
+    }
     private List<Integer> getStudentQuestsIds(int accountsId) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT id_quest FROM done_quests WHERE id_student = ?;");
         preparedStatement.setInt(1, accountsId);

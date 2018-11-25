@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class DAOAccountsSQL implements DAOAccounts {
@@ -20,6 +22,26 @@ public class DAOAccountsSQL implements DAOAccounts {
         return null;
     }
 
+
+    public List<Account> readAllStudents() throws SQLException{
+        String readAllStudentsQuery = "SELECT * FROM account WHERE role=?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(readAllStudentsQuery);
+        preparedStatement.setString(1, "STUDENT");
+        List<Account> studentsList = new ArrayList<>();
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while(resultSet.next()) {
+            int idAccount = resultSet.getInt("id_account");
+            String username = resultSet.getString("username");
+            String passwordHash = resultSet.getString("passwd_hash");
+            String name = resultSet.getString("name");
+            String surname = resultSet.getString("surname");
+            String email = resultSet.getString("email");
+            String role = resultSet.getString("role");
+            Account account = new Account(idAccount, username, passwordHash, name, surname, email, role);
+            studentsList.add(account);
+        }
+        return studentsList;
+    }
     @Override
     public Account getAccountsByNicknameAndPassword(String nickname, String password) throws SQLException, NoSuchElementException {
         String sql = "SELECT * FROM account WHERE username=? AND passwd_hash=? ;";
@@ -33,6 +55,35 @@ public class DAOAccountsSQL implements DAOAccounts {
         } else {
             throw new NoSuchElementException();
         }
+    }
+
+    public int getStudentCoins(int idAccount) throws SQLException{
+        String coinsQuery = "SELECT coins FROM account WHERE id_account = ?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(coinsQuery);
+        preparedStatement.setInt(1, idAccount);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        return resultSet.getInt("coins");
+    }
+
+    public void increaseStudentCoins(int idAccount, int coinsToIncrease) throws SQLException{
+        int coins = getStudentCoins(idAccount);
+        coins += coinsToIncrease;
+        String increaseCoinsQuery = "UPDATE account SET coins = ? WHERE id_account = ?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(increaseCoinsQuery);
+        preparedStatement.setInt(1, coinsToIncrease);
+        preparedStatement.setInt(2, idAccount);
+        preparedStatement.executeUpdate();
+    }
+
+    public void subtractStudentCoins(int idAccount, int coinsToSubtract) throws SQLException {
+        int coins = getStudentCoins(idAccount);
+        coins -= coinsToSubtract;
+        String subtractCoinsQuery = "UPDATE account SET coins = ? WHERE id_account = ?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(subtractCoinsQuery);
+        preparedStatement.setInt(1, coins);
+        preparedStatement.setInt(2, idAccount);
+        preparedStatement.executeUpdate();
     }
 
     public void addAccountToDatabase(int idAccount, String username, String password, String salt, String name, String surname, String email, String role) throws SQLException{
