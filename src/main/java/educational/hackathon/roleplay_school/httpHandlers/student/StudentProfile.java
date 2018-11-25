@@ -10,8 +10,6 @@ import org.jtwig.JtwigTemplate;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.HttpCookie;
-import java.util.Optional;
 
 public class StudentProfile implements HttpHandler {
     private AllDAOs allDAOs;
