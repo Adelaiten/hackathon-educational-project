@@ -20,9 +20,10 @@ public class LoginHandler implements HttpHandler {
     private CookieHelper cookieHelper;
     private DAOSession daoSession;
 
-    public LoginHandler(DAOAccounts daoAccounts, CookieHelper cookieHelper) {
+    public LoginHandler(DAOAccounts daoAccounts, DAOSession daoSession, CookieHelper cookieHelper) {
         this.daoAccounts = daoAccounts;
         this.cookieHelper = cookieHelper;
+        this.daoSession = daoSession;
     }
 
     @Override
@@ -70,17 +71,18 @@ public class LoginHandler implements HttpHandler {
         System.out.println(nick + " " + password);
         try {
             Account account = daoAccounts.getAccountsByNicknameAndPassword(nick, password);
-//            String sessionId = UUID.randomUUID().toString();
-//            account.setSessionId(sessionId);
-//            daoSession.setSessionId(sessionId, account.getIdAccount()); //TODO implement this method
-//            Optional<HttpCookie> cookie = Optional.of(new HttpCookie(cookieHelper.getSESSION_COOKIE_NAME(), sessionId));
-//            httpExchange.getResponseHeaders().add("Set-Cookie", cookie.get().toString());
+            String sessionId = UUID.randomUUID().toString();
+            account.setSessionId(sessionId);
+            int id = account.getIdAccount();
+            daoSession.setSessionId(sessionId, id);
+            Optional<HttpCookie> cookie = Optional.of(new HttpCookie(cookieHelper.getSESSION_COOKIE_NAME(), sessionId));
+            httpExchange.getResponseHeaders().add("Set-Cookie", cookie.get().toString());
 
 
             if (account.getRole().equals("TEACHER")){
-                httpExchange.getResponseHeaders().add("Location", "/studentProfile");
+                httpExchange.getResponseHeaders().add("Location", "/teacherAddQuest");
             } else if (account.getRole().equals("STUDENT")){
-                httpExchange.getResponseHeaders().add("Location", "/student/profile");
+                httpExchange.getResponseHeaders().add("Location", "/studentProfile");
             }
         } catch (NoSuchElementException e) {
             httpExchange.getResponseHeaders().add("Location", "/");
@@ -89,6 +91,8 @@ public class LoginHandler implements HttpHandler {
             httpExchange.getResponseHeaders().add("Location", "/");
             e.printStackTrace();
             System.out.println("wrong query");
+        } catch (NullPointerException e){
+            System.out.println("nullpoint");
         }
         httpExchange.sendResponseHeaders(303, 0);
     }
