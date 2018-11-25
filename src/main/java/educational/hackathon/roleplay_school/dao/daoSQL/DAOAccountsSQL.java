@@ -100,4 +100,13 @@ public class DAOAccountsSQL implements DAOAccounts {
         return account;
     }
 
+    @Override
+    public boolean isValidUserType(String sessionId, String userType) throws SQLException{
+        boolean isValid = false;
+        Account account = getAccountBySessionId(sessionId);
+        if(account.getRole().equals(userType)){
+            isValid = true;
+        }
+        return isValid;
+    }
 }
