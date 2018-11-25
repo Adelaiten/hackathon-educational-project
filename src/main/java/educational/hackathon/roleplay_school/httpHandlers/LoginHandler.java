@@ -4,8 +4,6 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import educational.hackathon.roleplay_school.dao.DAOAccounts;
 import educational.hackathon.roleplay_school.dao.DAOSession;
-import educational.hackathon.roleplay_school.dao.daoSQL.DAOAccountsSQL;
-import educational.hackathon.roleplay_school.dao.daoSQL.DAOSessionSQL;
 import educational.hackathon.roleplay_school.helpers.CookieHelper;
 import educational.hackathon.roleplay_school.models.Account;
 
@@ -43,16 +41,20 @@ public class LoginHandler implements HttpHandler {
         ClassLoader classLoader = getClass().getClassLoader();
         File loginPage = new File(classLoader.getResource(LOGIN_PAGE_URL).getFile());
 
+
         try (Scanner scanner = new Scanner(loginPage)){
+
             while (scanner.hasNextLine()){
                 String line = scanner.nextLine();
                 result.append(line).append("\n");
             }
+
             response = result.toString();
         } catch (IOException e){
             e.printStackTrace();
             System.out.println(String.format("Couldn't read %s file", LOGIN_PAGE_URL));
         }
+
         sendResponse(httpExchange, response);
     }
 

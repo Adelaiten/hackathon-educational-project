@@ -65,6 +65,8 @@ public class DAOAccountsSQL implements DAOAccounts {
         preparedStatement.executeUpdate();
     }
 
+    public int getStudentCoins(int idAccount) 
+
     private void fillStatement(int accountId, String username, String password, String salt, String name, String surname, String email, String role, PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setInt(1, accountId);
         preparedStatement.setString(2, username);
