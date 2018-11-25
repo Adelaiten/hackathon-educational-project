@@ -24,7 +24,7 @@ public class CookieHelper {
         return findCookieByName(SESSION_COOKIE_NAME, cookies);
     }
 
-    private List<HttpCookie> parseCookies(String cookieString){
+    public List<HttpCookie> parseCookies(String cookieString){
         List<HttpCookie> cookies = new ArrayList<>();
         if(cookieString == null || cookieString.isEmpty()){ // what happens if cookieString = null?
             return cookies;
@@ -38,7 +38,7 @@ public class CookieHelper {
         return cookies;
     }
 
-    private Optional<HttpCookie> findCookieByName(String name, List<HttpCookie> cookies){
+    public Optional<HttpCookie> findCookieByName(String name, List<HttpCookie> cookies){
         for(HttpCookie cookie : cookies){
             if(cookie.getName().equals(name))
                 return Optional.ofNullable(cookie);

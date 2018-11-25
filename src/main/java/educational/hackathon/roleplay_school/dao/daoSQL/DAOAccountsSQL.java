@@ -65,7 +65,16 @@ public class DAOAccountsSQL implements DAOAccounts {
         preparedStatement.executeUpdate();
     }
 
-    public int getStudentCoins(int idAccount) 
+    @Override
+    public Account getAccountBySessionId(String sessionId) throws SQLException {
+        String sql = "SELECT * FROM account INNER JOIN sessions ON account.id_account = sessions.id_account";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()){
+            return extractAccountFromResult(resultSet);
+        }
+        throw new NoSuchElementException();
+    }
 
     private void fillStatement(int accountId, String username, String password, String salt, String name, String surname, String email, String role, PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setInt(1, accountId);
