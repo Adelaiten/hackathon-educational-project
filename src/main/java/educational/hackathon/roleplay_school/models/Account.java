@@ -11,11 +11,11 @@ public class Account {
     private String name;
     private String surname;
     private String email;
-    private int role;
+    private String role;
 
     public Account(){}
 
-    public Account(int idAccount, String username, String passwordHash, String name, String surname, String email, int role) {
+    public Account(int idAccount, String username, String passwordHash, String name, String surname, String email, String role) {
         this.idAccount = idAccount;
         this.username = username;
         this.passwordHash = passwordHash;
@@ -81,11 +81,11 @@ public class Account {
         this.email = email;
     }
 
-    public int getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

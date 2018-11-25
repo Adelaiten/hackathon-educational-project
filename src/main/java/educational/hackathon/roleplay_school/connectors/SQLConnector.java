@@ -17,7 +17,7 @@ public class SQLConnector {
 
     private static void createConnection() throws SQLException {
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/school", "queststore", "admin123");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/school", "karol", "4313284");
 
         } catch (Exception e) {
             e.printStackTrace();
