@@ -10,4 +10,5 @@ public interface DAOAccounts {
     void addAccountToDatabase(int idAccount, String username, String password, String salt, String name, String surname, String email, String role) throws SQLException;
     void updateAccountInDatabase(Account account) throws SQLException;
     void deleteAccountFromDatabase(int idAccount) throws SQLException;
+    Account getAccountBySessionId(String sessionId) throws SQLException;
 }

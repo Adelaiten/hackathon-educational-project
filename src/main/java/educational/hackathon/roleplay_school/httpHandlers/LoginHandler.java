@@ -22,10 +22,9 @@ public class LoginHandler implements HttpHandler {
     private CookieHelper cookieHelper;
     private DAOSession daoSession;
 
-    public LoginHandler(DAOAccounts daoAccounts, DAOSession daoSession, CookieHelper cookieHelper) {
+    public LoginHandler(DAOAccounts daoAccounts, CookieHelper cookieHelper) {
         this.daoAccounts = daoAccounts;
         this.cookieHelper = cookieHelper;
-        this.daoSession = daoSession;
     }
 
     @Override
@@ -69,11 +68,11 @@ public class LoginHandler implements HttpHandler {
         System.out.println(nick + " " + password);
         try {
             Account account = daoAccounts.getAccountsByNicknameAndPassword(nick, password);
-            String sessionId = UUID.randomUUID().toString();
-            account.setSessionId(sessionId);
-            daoSession.setSessionId(sessionId, account.getIdAccount()); //TODO implement this method
-            Optional<HttpCookie> cookie = Optional.of(new HttpCookie(cookieHelper.getSESSION_COOKIE_NAME(), sessionId));
-            httpExchange.getResponseHeaders().add("Set-Cookie", cookie.get().toString());
+//            String sessionId = UUID.randomUUID().toString();
+//            account.setSessionId(sessionId);
+//            daoSession.setSessionId(sessionId, account.getIdAccount()); //TODO implement this method
+//            Optional<HttpCookie> cookie = Optional.of(new HttpCookie(cookieHelper.getSESSION_COOKIE_NAME(), sessionId));
+//            httpExchange.getResponseHeaders().add("Set-Cookie", cookie.get().toString());
 
 
             if (account.getRole().equals("TEACHER")){
@@ -86,6 +85,7 @@ public class LoginHandler implements HttpHandler {
             System.out.println("Coudn't find object in db");
         } catch (SQLException e){
             httpExchange.getResponseHeaders().add("Location", "/");
+            e.printStackTrace();
             System.out.println("wrong query");
         }
         httpExchange.sendResponseHeaders(303, 0);

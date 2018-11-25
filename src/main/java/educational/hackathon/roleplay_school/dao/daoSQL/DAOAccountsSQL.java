@@ -26,6 +26,7 @@ public class DAOAccountsSQL implements DAOAccounts {
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, nickname);
         ps.setString(2, password);
+        System.out.println(ps.toString());
         ResultSet resultSet = ps.executeQuery();
         if(resultSet.next()){
             return extractAccountFromResult(resultSet);
@@ -62,6 +63,17 @@ public class DAOAccountsSQL implements DAOAccounts {
         PreparedStatement preparedStatement = connection.prepareStatement(deleteAccountQuery);
         preparedStatement.setInt(1, idAccount);
         preparedStatement.executeUpdate();
+    }
+
+    @Override
+    public Account getAccountBySessionId(String sessionId) throws SQLException {
+        String sql = "SELECT * FROM account INNER JOIN sessions ON account.id_account = sessions.id_account";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()){
+            return extractAccountFromResult(resultSet);
+        }
+        throw new NoSuchElementException();
     }
 
     private void fillStatement(int accountId, String username, String password, String salt, String name, String surname, String email, String role, PreparedStatement preparedStatement) throws SQLException {

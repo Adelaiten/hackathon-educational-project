@@ -11,6 +11,7 @@ import educational.hackathon.roleplay_school.handlers.LoginPageHandler;
 import educational.hackathon.roleplay_school.handlers.Static;
 import educational.hackathon.roleplay_school.helpers.CookieHelper;
 import educational.hackathon.roleplay_school.httpHandlers.LoginHandler;
+import educational.hackathon.roleplay_school.httpHandlers.student.StudentLeaderboard;
 import educational.hackathon.roleplay_school.httpHandlers.student.StudentProfile;
 
 import java.net.InetSocketAddress;
@@ -30,8 +31,9 @@ public class Server {
             DAOAccounts daoAccounts = new DAOAccountsSQL(connection);
             DAOSession daoSession = new DAOSessionSQL(connection);
             HttpServer httpServer = HttpServer.create(new InetSocketAddress(8000), 0);
-            httpServer.createContext("/", new LoginHandler(daoAccounts, daoSession, cookieHelper));
+            httpServer.createContext("/", new LoginHandler(daoAccounts, cookieHelper));
             httpServer.createContext("/studentProfile", new StudentProfile(allDAOs, new CookieHelper("")));
+            httpServer.createContext("/studentLeaderboard", new StudentLeaderboard(allDAOs, new CookieHelper("")));
             httpServer.createContext("/static", new Static());
             httpServer.setExecutor(null);
             httpServer.start();
