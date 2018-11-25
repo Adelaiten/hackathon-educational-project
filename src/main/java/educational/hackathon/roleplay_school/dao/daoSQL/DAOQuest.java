@@ -30,7 +30,8 @@ public class DAOQuest implements DAOQuestInterface {
             String description = resultSet.getString("description");
             double amount = resultSet.getDouble("amount");
             int questType = resultSet.getInt("quest_type");
-            quest = new Quest(id, name, description, 0, amount, questType);
+            int questExp = resultSet.getInt("exp");
+            quest = new Quest(id, name, description, questExp, amount, questType);
         }
 
         return quest;
