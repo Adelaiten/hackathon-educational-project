@@ -66,11 +66,11 @@ public class DAOAccountsSQL implements DAOAccounts {
     }
 
     public void increaseExpInDatabase(int idAccount, int exp) throws SQLException{
-        int expFromDatabase = getExpFromDatabase(idAccount);
-        expFromDatabase += exp;
+        int expFromDatabaseToIncrease = getExpFromDatabase(idAccount);
+        expFromDatabaseToIncrease += exp;
         String sqlIncreaseExpQuery = "UPDATE account SET exp = ? WHERE id_account = ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlIncreaseExpQuery);
-        preparedStatement.setInt(1, exp);
+        preparedStatement.setInt(1, expFromDatabaseToIncrease);
         preparedStatement.setInt(2, idAccount);
         preparedStatement.executeUpdate();
     }
