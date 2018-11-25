@@ -63,9 +63,9 @@ public class LoginHandler implements HttpHandler {
             httpExchange.getResponseHeaders().add("Set-Cookie", cookie.get().toString());
 
 
-            if (account.getRole()== 1){
+            if (account.getRole().equals("TEACHER")){
                 httpExchange.getResponseHeaders().add("Location", "/teacher/profile");
-            } else if (account.getRole() == 2){
+            } else if (account.getRole().equals("STUDENT")){
                 httpExchange.getResponseHeaders().add("Location", "/student/profile");
             }
 
