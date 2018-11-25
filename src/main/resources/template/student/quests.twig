@@ -115,13 +115,13 @@
     <div class="tab-content col-sm-12">
         <div class="tab-pane" id="clear" role="tabpanel"></div>
         {% for quest in quests %}
-            <div class="tab-pane" id="#todo_desc{{loop.index}}" role="tabpanel">{{quest.getDescription()}}</div>
+            <div class="tab-pane" id="todo_desc{{loop.index}}" role="tabpanel">{{quest.getDescription()}}</div>
         {% endfor %}
         {% for quest in quests %}
-            <div class="tab-pane" id="#toverify_desc{{loop.index}}" role="tabpanel">{{quest.getDescription()}}</div>
+            <div class="tab-pane" id="toverify_desc{{loop.index}}" role="tabpanel">{{quest.getDescription()}}</div>
         {% endfor %}
         {% for quest in quests %}
-            <div class="tab-pane" id="#done_desc{{loop.index}}" role="tabpanel">{{quest.getDescription()}}</div>
+            <div class="tab-pane" id="done_desc{{loop.index}}" role="tabpanel">{{quest.getDescription()}}</div>
         {% endfor %}
     </div>
     <script>
